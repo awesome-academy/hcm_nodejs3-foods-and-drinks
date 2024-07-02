@@ -187,3 +187,69 @@ export function IsValidDOB(validationOptions?: ValidationOptions) {
     });
   };
 }
+
+export function IsDateInThePast(validationOptions?: ValidationOptions) {
+  return function (object: Object, propertyName: string) {
+    registerDecorator({
+      name: 'isDateInThePast',
+      target: object.constructor,
+      propertyName: propertyName,
+      options: validationOptions,
+      constraints: [],
+      validator: {
+        validate(value: string, args: ValidationArguments) {
+          if (!value) return true; // skip validation if no date is provided
+          const dateValue = new Date(value);
+          const currentDate = new Date();
+          return dateValue < currentDate;
+        },
+      },
+    });
+  };
+}
+
+export function IsStartDateBeforeEndDate(
+  property: string,
+  validationOptions?: ValidationOptions,
+) {
+  return function (object: Object, propertyName: string) {
+    registerDecorator({
+      name: 'isStartDateBeforeEndDate',
+      target: object.constructor,
+      propertyName: propertyName,
+      options: validationOptions,
+      constraints: [property],
+      validator: {
+        validate(value: string, args: ValidationArguments) {
+          const relatedValue = (args.object as any)[args.constraints[0]];
+          if (!value || !relatedValue) return true; // skip validation if dates are not provided
+          const startDate = new Date(value);
+          const endDate = new Date(relatedValue);
+          return startDate < endDate;
+        },
+      },
+    });
+  };
+}
+
+export function IsPasswordMatching(
+  property: string,
+  validationOptions?: ValidationOptions,
+) {
+  return function (object: Object, propertyName: string) {
+    registerDecorator({
+      name: 'isPasswordMatching',
+      target: object.constructor,
+      propertyName: propertyName,
+      options: validationOptions,
+      constraints: [property],
+      validator: {
+        validate(value: any, args: ValidationArguments) {
+          const [relatedPropertyName] = args.constraints;
+          const relatedValue = (args.object as any)[relatedPropertyName];
+          return value === relatedValue;
+        },
+      },
+    });
+  };
+}

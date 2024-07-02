@@ -4,7 +4,7 @@ import { UserService } from '../services/user.service';
 import { UserNavBar } from '../constants/user';
 import { CustomSessionData } from '../interfaces/session.interface';
 import { formatDate, handleError } from '../commons/utils';
-import { UserUpdateAccountDto } from '../commons/dtos/userUpdateAccount.dto';
+import { ChangePasswordDto } from '../commons/dtos/changePassword.dto';
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { UserEntity } from '../entities/user.entity';
@@ -31,7 +31,7 @@ export class UserController {
     },
   );
 
-  public updateAccount = asyncHandler(
+  public changePassword = asyncHandler(
     async (req: Request, res: Response) => {
       const user = (req.session as CustomSessionData).user;
       if(!user) {
@@ -40,7 +40,7 @@ export class UserController {
           error: Error.UNAUTHORIZED,
         });
       } else {
-        const updateOption = plainToClass(UserUpdateAccountDto, req.body);
+        const updateOption = plainToClass(ChangePasswordDto, req.body);
         const rawErrors = await validate(updateOption);
         if(rawErrors.length > 0) {
           const errors = handleError(rawErrors, req, res);
@@ -51,7 +51,7 @@ export class UserController {
         } else {
           try {
             const updateResult = 
-            await this.userService.updateAccount(user, updateOption);
+            await this.userService.changePassword(user, updateOption);
             if(updateResult instanceof UserEntity) {
               res.status(200).send({
                 success: true,

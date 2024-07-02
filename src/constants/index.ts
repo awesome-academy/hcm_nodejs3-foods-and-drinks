@@ -15,3 +15,4 @@ export * from './fee';
 export * from './order';
 export * from './store';
 export * from './category';
+export * from './analysis';

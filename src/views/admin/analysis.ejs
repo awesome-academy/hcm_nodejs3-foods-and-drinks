@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/stylesheets/bootstrap.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link rel="stylesheet" href="/stylesheets/admin-layout.css" />
+  <link rel="stylesheet" href="/stylesheets/dashboard.css" />
+  <link rel="icon" href="/images/kfc-logo.jpg" type="image/jpeg">
+  <title>
+    <%= (typeof currentSite !='undefined' ) ? t(currentSite) : t('admin.nav.default')%>
+  </title>
+</head>
+
+<body>
+  <div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <%- include('../layouts/admin/sidebar') -%>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <%- include('../layouts/admin/top-navbar') -%>
+          <div class="container-fluid px-4">
+            <div class="card mb-4">
+              <div class="card-body">
+                <form id="revenue-analysis-form" class="row g-3">
+                  <input type="hidden" id="revenue-analysis-data" value="<%= JSON.stringify(revenueAnalysisData) %>">
+                  <div class="col-md-2">
+                    <label for="startDate" class="form-label">
+                      <%= t('label.startDate') %>
+                    </label>
+                    <input type="date" name="startDate" class="form-control" id="revenue-analysis-startDate">
+                    <p class="text-danger pt-2 mb-0" id="revenue-analysis-startDate-error"></p>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="endDate" class="form-label">
+                      <%= t('label.endDate') %>
+                    </label>
+                    <input type="date" name="endDate" class="form-control" id="revenue-analysis-endDate">
+                    <p class="text-danger pt-2 mb-0" id="revenue-analysis-endDate-error"></p>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="interval" class="form-label">
+                      <%= t('label.interval') %>
+                    </label>
+                    <select name="interval" class="form-select" id="revenue-analysis-interval">
+                      <option value="day">
+                        <%= t('interval.day') %>
+                      </option>
+                      <option value="month">
+                        <%= t('interval.month') %>
+                      </option>
+                      <option value="year">
+                        <%= t('interval.year') %>
+                      </option>
+                    </select>
+                    <p class="text-danger pt-2 mb-0" id="revenue-analysis-interval-error"></p>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="store" class="form-label">
+                      <%= t('label.store') %>
+                    </label>
+                    <select name="storeId" class="form-select" id="revenue-analysis-storeId">
+                      <option value=""><%= t('title.all') %>
+                      </option>
+                      <% stores.forEach(store=> { %>
+                        <option value="<%= store.id %>">
+                          <%= store.name %> - <%= store.address %>
+                        </option>
+                      <% }); %>
+                    </select>
+                    <p class="text-danger pt-2 mb-0" id="revenue-analysis-storeId-error"></p>
+                  </div>
+                  <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary" form="revenue-analysis-form">
+                      <%= t('button.analyze') %>
+                    </button>
+                  </div>
+                </form>
+                <div class="mt-4">
+                  <canvas id="revenueChart"></canvas>
+                </div>
+                <div class="mt-4 text-center">
+                  <h2><%=t('chart.title.revenue')%></h2>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-4">
+              <div class="card-body">
+                <form id="store-revenue-analysis-form" class="row g-3">
+                  <input type="hidden" id="store-revenue-analysis-data" value="<%= JSON.stringify(storeAnalysisData) %>">
+                  <div class="col-md-2">
+                    <label for="startDate" class="form-label">
+                      <%= t('label.startDate') %>
+                    </label>
+                    <input type="date" name="startDate" class="form-control" id="store-revenue-analysis-startDate">
+                    <p class="text-danger pt-2 mb-0" id="store-revenue-analysis-startDate-error"></p>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="endDate" class="form-label">
+                      <%= t('label.endDate') %>
+                    </label>
+                    <input type="date" name="endDate" class="form-control" id="store-revenue-analysis-endDate">
+                    <p class="text-danger pt-2 mb-0" id="store-revenue-analysis-endDate-error"></p>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary" form="store-revenue-analysis-form">
+                      <%= t('button.analyze') %>
+                    </button>
+                  </div>
+                </form>
+                <div class="mt-4">
+                  <canvas id="storeRevenueChart"></canvas>
+                </div>
+                <div class="mt-4 text-center">
+                  <h2>
+                    <%=t('chart.title.storeRevenue')%>
+                  </h2>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-4">
+              <div class="card-body">
+                <form id="product-analysis-form" class="row g-3">
+                  <input type="hidden" id="product-analysis-data" value="<%= JSON.stringify(productAnalysisData) %>">
+                  <div class="col-md-2">
+                    <label for="startDate" class="form-label">
+                      <%= t('label.startDate') %>
+                    </label>
+                    <input type="date" name="startDate" class="form-control" id="product-analysis-startDate">
+                    <p class="text-danger pt-2 mb-0" id="product-analysis-startDate-error"></p>
+                  </div>
+                  <div class="col-md-2">
+                    <label for="endDate" class="form-label">
+                      <%= t('label.endDate') %>
+                    </label>
+                    <input type="date" name="endDate" class="form-control" id="product-analysis-endDate">
+                    <p class="text-danger pt-2 mb-0" id="product-analysis-endDate-error"></p>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="store" class="form-label">
+                      <%= t('label.store') %>
+                    </label>
+                    <select name="storeId" class="form-select" id="product-analysis-storeId">
+                      <option value="">
+                        <%= t('title.all') %>
+                      </option>
+                      <% stores.forEach(store=> { %>
+                        <option value="<%= store.id %>">
+                          <%= store.name %> - <%= store.address %>
+                        </option>
+                        <% }); %>
+                    </select>
+                    <p class="text-danger pt-2 mb-0" id="product-analysis-storeId-error"></p>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="store" class="form-label">
+                      <%= t('label.categories') %>
+                    </label>
+                    <select name="storeId" class="form-select" id="product-analysis-categoryId">
+                      <option value="">
+                        <%= t('title.all') %>
+                      </option>
+                      <% categories.forEach(category=> { %>
+                        <option value="<%= category.id %>">
+                          <%= category.name %>
+                        </option>
+                        <% }); %>
+                    </select>
+                    <p class="text-danger pt-2 mb-0" id="product-analysis-categoryId-error"></p>
+                  </div>
+                  <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary" form="product-analysis-form">
+                      <%= t('button.analyze') %>
+                    </button>
+                  </div>
+                </form>
+                <div class="mt-4">
+                  <canvas id="productAnalysisChart"></canvas>
+                </div>
+                <div class="mt-4 text-center">
+                  <h2>
+                    <%=t('chart.title.productAnalysis')%>
+                  </h2>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <!-- /#page-content-wrapper -->
+  </div>
+
+  <script src="/scripts/jquery.min.js"></script>
+  <script src="/scripts/bootstrap.bundle.min.js"></script>
+  <script src="/scripts/slim.min.js"></script>
+  <script src="/scripts/chart.js"></script>
+  <script src="/scripts/utils.js"></script>
+  <script src="/scripts/admin-layout.js"></script>
+  <script src="/scripts/analysis.js"></script>
+</body>
+
+</html>

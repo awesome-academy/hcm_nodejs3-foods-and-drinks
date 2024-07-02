@@ -84,7 +84,10 @@
                     </label>
                     <select name="categoryId" class="form-select" id="categories" required>
                       <% categories.forEach(category=> { %>
-                        <option value="<%= category.id %>">
+                        <option 
+                          value="<%= category.id %>"
+                          <%= ((typeof data !== 'undefined' && data.categoryId==category.id) || (typeof data === 'undefined' && product.categories[0].id==category.id)) ? 'selected' : '' %>
+                        >
                           <%= category.name %>
                         </option>
                         <% }); %>

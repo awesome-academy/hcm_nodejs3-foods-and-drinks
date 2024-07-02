@@ -81,7 +81,10 @@
                     </label>
                     <select name="categoryId" class="form-select" id="categories" required>
                       <% categories.forEach(category=> { %>
-                        <option value="<%= category.id %>">
+                        <option 
+                          value="<%= category.id %>"
+                          <%= (typeof data !=='undefined' && data.categoryId==category.id) ? 'selected' : '' %>
+                        >
                           <%= category.name %>
                         </option>
                         <% }); %>
@@ -96,14 +99,18 @@
                     <label class="my-2">
                       <%=t('product.create.label.image')%>:
                     </label>
-                    <input type="file" class="form-control" name="imageFile" id="image-input" accept="image/*" required>
-                    <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-width: 200px; margin-top: 10px;" />
+                    <input type="file" class="form-control" name="imageFile" id="image-input" accept="image/*" <%=((typeof data == 'undefined') || (typeof data !== 'undefined' && typeof data.image === 'undefined')) ? 'required' : '' %>>
+                    <% if (typeof data !== 'undefined' && typeof data.image !== 'undefined') { %>
+                      <img id="image-preview" src="<%=(typeof data !== 'undefined' && typeof data.image !== 'undefined') ? data.image : '#'%>" alt="Image Preview" style="max-width: 200px; margin-top: 10px;" />
+                    <% } else { %>
+                      <img id="image-preview" src="#" alt="Image Preview" style="display: none; max-width: 200px; margin-top: 10px;" />
+                    <% } %>
                     <% if (typeof errors !=='undefined' && errors.image !==undefined) { %>
                       <p class="text-danger pt-2 mb-0">
                         <%= t(errors.image) %>
                       </p>
-                      <% } %>
-                    <input type="hidden" name="image" id="image-url">
+                    <% } %>
+                    <input type="hidden" name="image" id="image-url" value="<%=(typeof data !== 'undefined' && typeof data.image !== 'undefined') ? data.image : '' %>">
                   </div>
                 </div>       
                 <div class="form-buttons text-end">

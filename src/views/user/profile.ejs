@@ -149,38 +149,38 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="updateAccountModalLabel">
-              <%= t('profile.updateAccount.title') %>
+              <%= t('profile.changePassword.title') %>
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form id="updateAccountForm">
               <div class="mb-3">
-                <label for="userName" class="form-label">
-                  <strong>
-                    <%= t('profile.updateAccount.userName') %>:
-                  </strong>
-                </label>
-                <input type="text" class="form-control" id="update-account-userName" name="userName" value="<%=user.userName%>" required>
-                <p class="text-danger pt-2 mb-0" id="update-account-userName-error"></p>
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">
-                  <strong>
-                    <%= t('profile.updateAccount.email') %>:
-                  </strong>
-                </label>
-                <input type="text" class="form-control" id="update-account-email" name="email" value="<%=user.email%>" required>
-                <p class="text-danger pt-2 mb-0" id="update-account-email-error"></p>
-              </div>
-              <div class="mb-3">
                 <label for="password" class="form-label">
                   <strong>
-                    <%= t('profile.updateAccount.confirmPassword') %>:
+                    <%= t('profile.changePassword.password') %>(*):
                   </strong>
                 </label>
-                <input type="password" class="form-control" id="update-account-password" name="password">
-                <p class="text-danger pt-2 mb-0" id="update-account-password-error"></p>
+                <input type="password" class="form-control" id="change-password-password" name="password" required>
+                <p class="text-danger pt-2 mb-0" id="change-password-password-error"></p>
+              </div>
+              <div class="mb-3">
+                <label for="newPassword" class="form-label">
+                  <strong>
+                    <%= t('profile.changePassword.newPassword') %>(*):
+                  </strong>
+                </label>
+                <input type="password" class="form-control" id="change-password-newPassword" name="newPassword" required>
+                <p class="text-danger pt-2 mb-0" id="change-password-newPassword-error"></p>
+              </div>
+              <div class="mb-3">
+                <label for="confirmPassword" class="form-label">
+                  <strong>
+                    <%= t('profile.changePassword.confirmPassword') %>(*):
+                  </strong>
+                </label>
+                <input type="password" class="form-control" id="change-password-confirmPassword" name="confirmPassword" required>
+                <p class="text-danger pt-2 mb-0" id="change-password-confirmPassword-error"></p>
               </div>
             </form>
           </div>
@@ -212,7 +212,7 @@
               <div class="mb-3">
                 <label for="userName" class="form-label">
                   <strong>
-                    <%= t('profile.updateAvatar.avatar') %>:
+                    <%= t('profile.updateAvatar.avatar') %>(*):
                   </strong>
                 </label>
                 <input type="file" class="form-control" name="imageFile" id="image-input" accept="image/*">
@@ -254,7 +254,7 @@
               <div class="mb-3">
                 <label for="fullName" class="form-label">
                   <strong>
-                    <%= t('profile.updatePersonalInfo.fullName') %>:
+                    <%= t('profile.updatePersonalInfo.fullName') %>(*):
                   </strong>
                 </label>
                 <input type="text" class="form-control" id="update-updatePersonalInfo-fullName" name="fullName"
@@ -264,7 +264,7 @@
               <div class="mb-3">
                 <label for="gender" class="form-label">
                   <strong>
-                    <%= t('profile.updatePersonalInfo.gender') %>:
+                    <%= t('profile.updatePersonalInfo.gender') %>(*):
                   </strong>
                 </label>
                 <select class="form-select" id="update-updatePersonalInfo-gender" name="gender" required>
@@ -280,7 +280,7 @@
               <div class="mb-3">
                 <label for="address" class="form-label">
                   <strong>
-                    <%= t('profile.updatePersonalInfo.address') %>:
+                    <%= t('profile.updatePersonalInfo.address') %>(*):
                   </strong>
                 </label>
                 <input type="text" class="form-control" id="update-updatePersonalInfo-address" name="address"
@@ -290,7 +290,7 @@
               <div class="mb-3">
                 <label for="phoneNumber" class="form-label">
                   <strong>
-                    <%= t('profile.updatePersonalInfo.phoneNumber') %>:
+                    <%= t('profile.updatePersonalInfo.phoneNumber') %>(*):
                   </strong>
                 </label>
                 <input type="text" class="form-control" id="update-updatePersonalInfo-phoneNumber" name="phoneNumber"
@@ -300,7 +300,7 @@
               <div class="mb-3">
                 <label for="dob" class="form-label">
                   <strong>
-                    <%= t('profile.updatePersonalInfo.dob') %>:
+                    <%= t('profile.updatePersonalInfo.dob') %>(*):
                   </strong>
                 </label>
                 <input type="date" class="form-control" id="update-updatePersonalInfo-dob" name="dob" value="<%= user.dob ? formatDate(user.dob, true) : '' %>">

@@ -3,6 +3,7 @@
     "title": "Trang chủ",
     "addToCartBtn": "Thêm vào giỏ hàng",
     "newProduct": "Sản phẩm mới",
+    "suggestionProduct": "Sản phẩm gợi ý",
     "discount": "Khuyến mãi",
     "search": {
       "placeHolder": "Bạn cần tìm gì?"
@@ -71,11 +72,14 @@
     },
     "file": {
       "uploadError": "Có lỗi trong quá trình upload file",
-      "invalidType": "Định dạng file không hợp lệ"
+      "invalidType": "Định dạng file không hợp lệ",
+      "noFile": "Hãy chọn tệp để tải lên"
     },
     "category": {
       "minLength": "Độ dài tối thiểu của tên phân loại là 2 ký tự"
-    }
+    },
+    "pastDate": "Phải chọn ngày trong quá khứ",
+    "startDate": "Ngày bắt đầu phải sớm hơn ngày kết thúc"
   },
   "register": {
     "title": "Tạo tài khoản mới",
@@ -376,7 +380,8 @@
     "updateProduct": "Cập nhật sản phẩm",
     "create": "Tạo",
     "update": "Cập nhật",
-    "delete": "Xóa"
+    "delete": "Xóa",
+    "analyze": "Phân tích"
   },
   "store": {
     "search": {
@@ -457,12 +462,11 @@
     }
   },
   "profile": {
-    "updateAccount": {
-      "title": "Cập nhật thông tin tài khoản",
-      "userName": "Tên đăng nhập",
-      "email": "Email",
-      "confirmPassword": "Xác nhận mật khẩu",
-      "success": "Cập nhật thông tin tài khoản thành công!"
+    "changePassword": {
+      "title": "Đổi mật khẩu",
+      "password": "Mật khẩu cũ",
+      "newPassword": "Mật khẩu mới",
+      "confirmPassword": "Xác nhận mật khẩu"
     },
     "updateAvatar": {
       "title": "Cập nhật ảnh đại diện",
@@ -482,5 +486,40 @@
   "gender": {
     "MALE": "Nam",
     "FEMALE": "Nữ"
+  },
+  "dashboard": {
+    "commonData": {
+      "totalUser": "Số người dùng",
+      "totalOrder": "Số đơn hàng",
+      "totalProduct": "Số sản phẩm",
+      "totalStore": "Số cửa hàng",
+      "totalCategory": "Số phân loại",
+      "totalRevenue": "Tổng doanh thu"
+    },
+    "chart": {
+      "orderByStatus": "Đơn hàng theo trạng thái",
+      "orderByPaymentStatus": "Đơn hàng theo tình trạng thanh toán",
+      "topPurchasedProduct": "Top sản phẩm được mua nhiều nhất",
+      "orderByStore": "Đơn hàng theo cửa hàng"
+    }
+  },
+  "interval": {
+    "day": "Ngày",
+    "month": "Tháng",
+    "year": "Năm"
+  },
+  "label": {
+    "startDate": "Từ",
+    "endDate": "Đến",
+    "interval": "Theo",
+    "store": "Cửa hàng",
+    "categories": "Phân loại"
+  },
+  "chart": {
+    "title": {
+      "revenue": "Biểu đồ doanh thu",
+      "storeRevenue": "Biểu đồ doanh thu theo cửa hàng",
+      "productAnalysis": "Biểu đồ số lượng sản phẩm bán ra"
+    }
   }
 }

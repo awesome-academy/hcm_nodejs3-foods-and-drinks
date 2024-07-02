@@ -29,6 +29,52 @@
           </form>
         </div>
       </div>
+      <% if(suggestionProduct.length > 0) { %>
+        <h3 class="mb-4 text-danger">
+          <%= t('home.suggestionProduct') %>
+        </h3>
+        <div class="row g-4 mb-4">
+          <% suggestionProduct.forEach((product)=> { %>
+            <div class="col-md-3">
+              <div class="card">
+                <a href="/products/<%= product.id %>">
+                  <img src="<%= product.image %>" class="card-img-top" alt="Product Image">
+                </a>
+                <div class="card-body">
+                  <a href="/products/<%= product.id %>">
+                    <h5 class="card-title">
+                      <%= product.name %>
+                    </h5>
+                  </a>
+                  <div class="d-flex justify-content-left mb-2">
+                    <p class="card-price">
+                      <%= formatCurrency(product.currentPrice) %>
+                    </p>
+                    <% if(product.basePrice!==product.currentPrice) { %>
+                      <p class="card-old-price">
+                        <%= formatCurrency(product.basePrice) %>
+                      </p>
+                      <% } %>
+                  </div>
+                  <p class="star">
+                    <% for(let k=0; k < product.averageRating; k++) { %>
+                      ★
+                      <% } %>
+                  </p>
+                  <p class="card-text">
+                    <%= product.description %>
+                  </p>
+                </div>
+                <button type="submit" class="btn btn-primary addToCartBtn" onclick="addToCart(event, '<%= product.id %>')">
+                  <strong>
+                    <%= t('home.addToCartBtn') %>
+                  </strong>
+                </button>
+              </div>
+            </div>
+            <% }) %>
+        </div>
+      <% } %>
       <a href="/products/search?sortField=createdAt&order=DESC" class="link-danger link-offset-2 link-underline-opacity-0 link-opacity-50-hover">
         <h3 class="mb-4">
           <%= t('home.newProduct') %>
@@ -146,7 +192,7 @@
                     </p>
                     <% if(product.basePrice!==product.currentPrice) { %>
                       <p class="card-old-price">
-                        <%= formatCurrency(product.basePrice) %>₫
+                        <%= formatCurrency(product.basePrice) %>
                       </p>
                       <% } %>
                   </div>

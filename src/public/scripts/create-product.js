@@ -14,20 +14,34 @@ document.getElementById('image-input').addEventListener('change', function (even
 document.getElementById('product-form').addEventListener('submit', async function (event) {
   event.preventDefault();
 
-  const formData = new FormData();
-  formData.append('file', document.getElementById('image-input').files[0]);
+  const file = document.getElementById('image-input').files[0]
 
-  try {
-    const response = await fetch('/file', {
-      method: 'POST',
-      body: formData
-    });
-    const result = await response.json();
+  if(file) {
+    const formData = new FormData();
+    formData.append('file', file);
 
-    if (result.url) {
-      document.getElementById('image-url').value = result.url;
-      event.target.submit();  // Proceed with the form submission
-    } else {
+    try {
+      const response = await fetch('/file', {
+        method: 'POST',
+        body: formData
+      });
+      const result = await response.json();
+
+      if (result.url) {
+        document.getElementById('image-url').value = result.url;
+        event.target.submit();  // Proceed with the form submission
+      } else {
+        swal.fire({
+          title: locale === 'en' ? 'Error' : 'Lỗi',
+          text:
+            locale === 'en'
+              ? 'Error while uploading image. Please try again!'
+              : 'Có lỗi xảy ra trong quá trình upload ảnh, hãy thử lại!',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+      }
+    } catch (error) {
       swal.fire({
         title: locale === 'en' ? 'Error' : 'Lỗi',
         text:
@@ -38,15 +52,7 @@ document.getElementById('product-form').addEventListener('submit', async functio
         confirmButtonText: 'OK',
       });
     }
-  } catch (error) {
-    swal.fire({
-      title: locale === 'en' ? 'Error' : 'Lỗi',
-      text:
-        locale === 'en'
-          ? 'Error while uploading image. Please try again!'
-          : 'Có lỗi xảy ra trong quá trình upload ảnh, hãy thử lại!',
-      icon: 'error',
-      confirmButtonText: 'OK',
-    });
+  } else {
+    event.target.submit();
   }
 });

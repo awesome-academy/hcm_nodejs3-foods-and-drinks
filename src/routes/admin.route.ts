@@ -51,4 +51,12 @@ adminRoute.post('/category', adminCategoryController.createCategoryPost);
 adminRoute.put('/category/:id', adminCategoryController.updateCategory);
 adminRoute.delete('/category/:id', adminCategoryController.deleteCategory);
 
+adminRoute.get('/analysis', adminController.getAnalysisPage);
+adminRoute.get('/analysis/revenue', adminController.getRevenueAnalysis);
+adminRoute.get(
+  '/analysis/store-revenue',
+  adminController.getStoreRevenueAnalysis,
+);
+adminRoute.get('/analysis/product', adminController.getProductAnalysis);
+
 export default adminRoute;

@@ -1,0 +1,22 @@
+.card h3 {
+  font-size: 1.2rem;
+}
+
+.chart-heading {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.chart-container {
+  position: relative;
+  height: 300px;
+}
+
+.chart-details ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.chart-details ul li {
+  margin-bottom: 5px;
+}

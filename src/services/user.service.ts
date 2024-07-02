@@ -9,7 +9,7 @@ import { LoginDto } from '../commons/dtos/login.dto';
 import { UserPageOptions } from '../commons/dtos/userPageOptions.dto';
 import { PageDto } from '../commons/dtos/page.dto';
 import { PageMetaDto } from '../commons/dtos/pageMeta.dto';
-import { UserUpdateAccountDto } from '../commons/dtos/userUpdateAccount.dto';
+import { ChangePasswordDto } from '../commons/dtos/changePassword.dto';
 import { UpdateAvatarDto } from '../commons/dtos/updateAvatar.dto';
 
 export class UserService {
@@ -108,44 +108,22 @@ export class UserService {
     return new PageDto(entities, pageMeta);
   }
 
-  async updateAccount(user: UserEntity, updateOptions: UserUpdateAccountDto)
+  async changePassword(user: UserEntity, updateOptions: ChangePasswordDto)
   : Promise<any | UserEntity> {
-    const errors: any = {};
-    const {userName, email, password} = updateOptions;
-
-    // Check for duplicate userName
-    const userByUserName = await this.userRepository.findOne({
-      where: {
-        userName: userName,
-      },
-    });
-    if (userByUserName && user.id !== userByUserName.id) {
-      errors.userName = [Error.DUPLICATE_USER_NAME];
-    }
-
-    // Check for duplicate email
-    const userByEmail = await this.userRepository.findOne({
-      where: {
-        email: email,
-      },
-    });
-    if (userByEmail && user.id !== userByEmail.id) {
-      errors.email = [Error.DUPLICATE_EMAIL];
-    }
-
     // Check password match
+    const { password, newPassword } = updateOptions;
     const isMatch = await bcryptjs.compare(password, user.password);
     if (!isMatch) {
-      errors.password = [Error.INVALID_CREDENTIAL];
+      return {
+        password : [Error.INVALID_CREDENTIAL],
+      };
     }
 
-    // Return errors if any
-    if (Object.keys(errors).length > 0) {
-      return errors;
-    }
+    const salt = await bcryptjs.genSalt(10);
+    const newHashPassword = await bcryptjs.hash(newPassword, salt);
 
     // Merge and save updated data
-    this.userRepository.merge(user, {userName, email});
+    this.userRepository.merge(user, {password: newHashPassword});
     return this.userRepository.save(user);
   }
 

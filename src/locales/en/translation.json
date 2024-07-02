@@ -3,6 +3,7 @@
     "title": "Home",
     "addToCartBtn": "Add to cart",
     "newProduct": "New products",
+    "suggestionProduct": "Suggestion products",
     "discount": "Discount",
     "search": {
       "placeHolder": "What are you looking for?"
@@ -71,11 +72,14 @@
     },
     "file": {
       "uploadError": "Error while uploading file",
-      "invalidType": "Invalid file type"
+      "invalidType": "Invalid file type",
+      "noFile": "Please select a file to upload"
     },
     "category": {
       "minLength": "Category name min length is 2 characters"
-    }
+    },
+    "pastDate": "Date must be in the past",
+    "startDate": "Start date must be sooner than end date"
   },
   "register": {
     "title": "CREATE YOUR ACCOUNT",
@@ -376,7 +380,8 @@
     "updateProduct": "Update product",
     "create": "Create",
     "update": "Update",
-    "delete": "Delete"
+    "delete": "Delete",
+    "analyze": "Analyze"
   },
   "store": {
     "search": {
@@ -457,12 +462,11 @@
     }
   },
   "profile": {
-    "updateAccount": {
-      "title": "Update account information",
-      "userName": "User name",
-      "email": "Email",
-      "confirmPassword": "Confirm password",
-      "success": "Update account information successfully!"
+    "changePassword": {
+      "title": "Change password",
+      "password": "Password",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password"
     },
     "updateAvatar": {
       "title": "Update avatar",
@@ -482,5 +486,40 @@
   "gender": {
     "MALE": "Male",
     "FEMALE": "Female"
+  },
+  "dashboard": {
+    "commonData": {
+      "totalUser": "Total users",
+      "totalOrder": "Total orders",
+      "totalProduct": "Total products",
+      "totalStore": "Total stores",
+      "totalCategory": "Total categories",
+      "totalRevenue": "Total revenue"
+    },
+    "chart": {
+      "orderByStatus": "Order by status",
+      "orderByPaymentStatus": "Order by payment status",
+      "topPurchasedProduct": "Top purchased products",
+      "orderByStore": "Order by store"
+    }
+  },
+  "interval": {
+    "day": "Day",
+    "month": "Month",
+    "year": "Year"
+  },
+  "label": {
+    "startDate": "Start date",
+    "endDate": "End date",
+    "interval": "Interval",
+    "store": "Store",
+    "categories": "Category"
+  },
+  "chart": {
+    "title": {
+      "revenue": "Revenue chart",
+      "storeRevenue": "Revenue by store chart",
+      "productAnalysis": "Sold products chart"
+    }
   }
 }

@@ -21,14 +21,18 @@ export class ProductController {
   
   public getHomePage = asyncHandler(
     async (req: Request, res: Response) => {
+      const user = (req.session as CustomSessionData).user;
       const data = await this.productService.getProductsByCategory();
       const newProduct = await this.productService.getNewProduct();
       const discountProduct = await this.productService.getDiscountProduct();
+      const suggestionProduct = await this.productService
+      .getSuggestionProduct(user);
       return res.render('user/home', {
-        user: (req.session as CustomSessionData).user,
+        user,
         cartItem: (req.session as CustomSessionData).cartItem,
         newProduct, 
         discountProduct, 
+        suggestionProduct,
         data, 
         formatCurrency,
       });

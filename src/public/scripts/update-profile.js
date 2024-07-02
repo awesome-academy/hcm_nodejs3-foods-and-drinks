@@ -30,7 +30,7 @@ document.getElementById('updateAccountForm').addEventListener('submit', async fu
 
   const confirmUpdate = await swal.fire({
     title: locale === 'en' ? 'Confirm' : 'Xác nhận',
-    text: locale === 'en' ? 'Confirm update account information' : 'Xác nhận cập nhật thông tin tài khoản?',
+    text: locale === 'en' ? 'Confirm change password' : 'Xác nhận đổi mật khẩu?',
     icon: 'warning',
     showCancelButton: true,
     confirmButtonText: locale === 'en' ? 'Yes' : 'Có',
@@ -39,18 +39,18 @@ document.getElementById('updateAccountForm').addEventListener('submit', async fu
 
   if(confirmUpdate.isConfirmed) {
       // Clear previous error messages
-    document.getElementById('update-account-userName-error').textContent = '';
-    document.getElementById('update-account-email-error').textContent = '';
-    document.getElementById('update-account-password-error').textContent = '';
+    document.getElementById('change-password-password-error').textContent = '';
+    document.getElementById('change-password-newPassword-error').textContent = '';
+    document.getElementById('change-password-confirmPassword-error').textContent = '';
 
     let data = {
-      userName: document.getElementById('update-account-userName').value,
-      email: document.getElementById('update-account-email').value,
-      password: document.getElementById('update-account-password').value,
+      password: document.getElementById('change-password-password').value,
+      newPassword: document.getElementById('change-password-newPassword').value,
+      confirmPassword: document.getElementById('change-password-confirmPassword').value,
     };
 
     try {
-      const response = await fetch(`/user/profile/account`, {
+      const response = await fetch(`/user/profile/password`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -62,14 +62,14 @@ document.getElementById('updateAccountForm').addEventListener('submit', async fu
         const errorData = await response.json();
         if (errorData.errors) {
           for (const [key, value] of Object.entries(errorData.errors)) {
-            document.getElementById(`update-account-${key}-error`).textContent = value[0];
+            document.getElementById(`change-password-${key}-error`).textContent = value[0];
           }
         } else {
           throw new Error('Network response was not ok');
         }
       } else {
         const confirmResult = await swal.fire({
-          title: locale === 'en' ? 'Update account information successfully!' : 'Cập nhật thông tin tài khoản thành công!',
+          title: locale === 'en' ? 'Change password successfully!' : 'Đổi mật khẩu thành công!',
           icon: 'success',
           confirmButtonText: locale === 'en' ? 'Close' : 'Đóng',
         });

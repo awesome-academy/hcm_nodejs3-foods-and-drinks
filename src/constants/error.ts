@@ -30,4 +30,6 @@ export enum Error {
   CANNOT_DELETE_CATEGORY = 'error.category.cannotDelete',
   UNAUTHORIZED = 'error.unauthorized',
   INVALID_DOB = 'error.invalidDob',
+  PAST_DATE = 'error.pastDate',
+  INVALID_START_DATE = 'error.startDate',
 }

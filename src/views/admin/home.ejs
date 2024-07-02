@@ -8,29 +8,169 @@
   <link rel="stylesheet" href="/stylesheets/bootstrap.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
   <link rel="stylesheet" href="/stylesheets/admin-layout.css" />
+  <link rel="stylesheet" href="/stylesheets/dashboard.css" />
   <link rel="icon" href="/images/kfc-logo.jpg" type="image/jpeg">
-  <title><%= (typeof currentSite !='undefined' ) ? t(currentSite) : t('admin.nav.default')%></title>
+  <title>
+    <%= (typeof currentSite !='undefined' ) ? t(currentSite) : t('admin.nav.default')%>
+  </title>
 </head>
 
 <body>
   <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
     <%- include('../layouts/admin/sidebar') -%>
-    <!-- /#sidebar-wrapper -->
+      <!-- /#sidebar-wrapper -->
 
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-      <%- include('../layouts/admin/top-navbar') -%>
-      <div class="container-fluid px-4">
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <%- include('../layouts/admin/top-navbar') -%>
+          <div class="container-fluid px-4">
+            <div class="row mb-4" id="common-data-section">
+              <div class="col-12">
+                <div class="row text-center">
+                  <div class="col-6 col-lg-4 mb-3">
+                    <div class="card p-3 shadow-sm">
+                      <h3 class="text-danger">
+                        <%=t('dashboard.commonData.totalUser')%>
+                      </h3>
+                      <h3 class="font-weight-bold">
+                        <%=commonData.totalUser%>
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-6 col-lg-4 mb-3">
+                    <div class="card p-3 shadow-sm">
+                      <h3 class="text-danger">
+                        <%=t('dashboard.commonData.totalOrder')%>
+                      </h3>
+                      <h3 class="font-weight-bold">
+                        <%=commonData.totalOrder%>
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-6 col-lg-4 mb-3">
+                    <div class="card p-3 shadow-sm">
+                      <h3 class="text-danger">
+                        <%=t('dashboard.commonData.totalProduct')%>
+                      </h3>
+                      <h3 class="font-weight-bold">
+                        <%=commonData.totalProduct%>
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-6 col-lg-4 mb-3">
+                    <div class="card p-3 shadow-sm">
+                      <h3 class="text-danger">
+                        <%=t('dashboard.commonData.totalStore')%>
+                      </h3>
+                      <h3 class="font-weight-bold">
+                        <%=commonData.totalStore%>
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-6 col-lg-4 mb-3">
+                    <div class="card p-3 shadow-sm">
+                      <h3 class="text-danger">
+                        <%=t('dashboard.commonData.totalCategory')%>
+                      </h3>
+                      <h3 class="font-weight-bold">
+                        <%=commonData.totalCategory%>
+                      </h3>
+                    </div>
+                  </div>
+                  <div class="col-6 col-lg-4 mb-3">
+                    <div class="card p-3 shadow-sm">
+                      <h3 class="text-danger">
+                        <%=t('dashboard.commonData.totalRevenue')%>
+                      </h3>
+                      <h3 class="font-weight-bold">
+                        <%=formatCurrency(commonData.totalRevenue)%>
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" id="chart-section">
+              <div class="col-12 col-lg-6 mb-4 d-flex align-items-stretch">
+                <div class="card p-3 shadow-sm w-100">
+                  <input type="hidden" value="<%=JSON.stringify(numOfOrderByStatus)%>" id="order-by-status-data">
+                  <h2 class="chart-heading text-danger">
+                    <%=t('dashboard.chart.orderByStatus')%>
+                  </h2>
+                  <div id="order-by-status-stats" class="row d-flex align-items-center justify-content-center">
+                    <div class="col-7 chart-container">
+                      <canvas id="order-by-status-chart"></canvas>
+                    </div>
+                    <div class="col-5 chart-details">
+                      <ul></ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 mb-4 d-flex align-items-stretch">
+                <div class="card p-3 shadow-sm w-100">
+                  <input type="hidden" value="<%=JSON.stringify(numOfOrderByPaymentStatus)%>"
+                    id="order-by-payment-status-data">
+                  <h2 class="chart-heading text-danger">
+                    <%=t('dashboard.chart.orderByPaymentStatus')%>
+                  </h2>
+                  <div id="order-by-payment-status-stats" class="row d-flex align-items-center justify-content-center">
+                    <div class="col-7 chart-container">
+                      <canvas id="order-by-payment-status-chart"></canvas>
+                    </div>
+                    <div class="col-5 chart-details">
+                      <ul></ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 mb-4 d-flex align-items-stretch">
+                <div class="card p-3 shadow-sm w-100">
+                  <input type="hidden" value="<%=JSON.stringify(topProducts)%>" id="top-product-data">
+                  <h2 class="chart-heading text-danger">
+                    <%=t('dashboard.chart.topPurchasedProduct')%>
+                  </h2>
+                  <div id="top-product-stats" class="row d-flex align-items-center justify-content-center">
+                    <div class="col-7 chart-container">
+                      <canvas id="top-product-chart"></canvas>
+                    </div>
+                    <div class="col-5 chart-details">
+                      <ul></ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 mb-4 d-flex align-items-stretch">
+                <div class="card p-3 shadow-sm w-100">
+                  <input type="hidden" value="<%=JSON.stringify(numOfOrderByStore)%>" id="order-by-store-data">
+                  <h2 class="chart-heading text-danger">
+                    <%=t('dashboard.chart.orderByStore')%>
+                  </h2>
+                  <div id="order-by-store-stats" class="row d-flex align-items-center justify-content-center">
+                    <div class="col-7 chart-container">
+                      <canvas id="order-by-store-chart"></canvas>
+                    </div>
+                    <div class="col-5 chart-details">
+                      <ul></ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
       </div>
-  </div>
-  <!-- /#page-content-wrapper -->
+      <!-- /#page-content-wrapper -->
   </div>
 
   <script src="/scripts/jquery.min.js"></script>
   <script src="/scripts/bootstrap.bundle.min.js"></script>
   <script src="/scripts/slim.min.js"></script>
+  <script src="/scripts/chart.js"></script>
+  <script src="/scripts/utils.js"></script>
   <script src="/scripts/admin-layout.js"></script>
+  <script src="/scripts/dashboard.js"></script>
 </body>
 
 </html>

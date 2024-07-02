@@ -19,9 +19,19 @@ import StoreSeeder from './store.seeder';
 import AdminSeeder from './admin.seeder';
 dotenv.config();
 
-const { DB_HOST, DB_PORT, DB_USERNAME, DB_PASSWORD, DB_DATABASE } = process.env;
+const {
+  DB_HOST,
+  DB_PORT,
+  DB_USERNAME,
+  DB_PASSWORD,
+  DB_DATABASE,
+  DB_TEST_DATABASE,
+  NODE_ENV,
+} = process.env;
 
 const port = DB_PORT ? parseInt(DB_PORT) : 3306;
+
+const database = NODE_ENV === 'test' ? DB_TEST_DATABASE : DB_DATABASE;
 
 async function executeSeeding() {
   const options: DataSourceOptions & SeederOptions = {
@@ -30,7 +40,7 @@ async function executeSeeding() {
     port: port,
     username: DB_USERNAME,
     password: DB_PASSWORD,
-    database: DB_DATABASE,
+    database: database,
     entities: [
       AdminEntity,
       CartProductEntity,

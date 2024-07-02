@@ -24,11 +24,18 @@ describe('AuthService', () => {
       password: '',
       fullName: 'testFullName',
     });
+    const admin = adminRepository.create({
+      userName: 'admin',
+      email: 'admin@gmail.com',
+      password: '',
+    });
     await userRepository.save(newUser);
+    await adminRepository.save(admin);
   });
 
   afterAll(async () => {
     await userRepository.delete({ userName: 'testAccount' });
+    await adminRepository.delete({ userName: 'admin' });
     await AppDataSource.destroy();
   });
 

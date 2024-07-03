@@ -222,7 +222,6 @@ describe('UserService', () => {
         skip: 0,
       };
       const result = await userService.getUserPage(pageOptions);
-      console.log('result:', result);
       expect(result.data.length).toBeGreaterThan(0);
       expect(result.data[0]).toBeInstanceOf(UserEntity);
       expect(result.meta).toEqual({

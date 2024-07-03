@@ -49,18 +49,21 @@ export class AdminService {
     const totalStore = await AppDataSource.getRepository(StoreEntity).count();
     const totalCategory = await 
     AppDataSource.getRepository(CategoryEntity).count();
-    const totalRevenue = 
-    await AppDataSource.getRepository(OrderEntity).createQueryBuilder('order')
+    let totalRevenue = 0;
+    const totalRevenueQuery = await AppDataSource.getRepository(OrderEntity).createQueryBuilder('order')
     .select('SUM(order.total)', 'totalRevenue')
     .where('order.paymentStatus = :paymentStatus', {paymentStatus: PaymentStatus.COMPLETE})
-    .getRawOne().then(result=>result.totalRevenue);
+    .getRawOne();
+    if (totalRevenueQuery && totalRevenueQuery.totalRevenue !== null) {
+      totalRevenue = parseInt(totalRevenueQuery.totalRevenue);
+    }
     return {
       totalOrder, 
       totalProduct, 
       totalUser, 
       totalStore, 
       totalCategory,
-      totalRevenue: parseInt(totalRevenue),
+      totalRevenue,
     };
   }
 }

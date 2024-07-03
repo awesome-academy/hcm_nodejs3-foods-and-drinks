@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "npx eslint --ext .ts src/",
     "start": "nodemon ts-node src/index.ts",
-    "test": "NODE_ENV=test jest ./test",
+    "test": "NODE_ENV=test jest ./test --runInBand",
     "dev:start": "nodemon dist/index.js",
     "server:start": "DEBUG=student-management:* npm run dev:start",
     "migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d ./src/config/ormConfig.ts",

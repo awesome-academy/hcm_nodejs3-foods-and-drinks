@@ -6,9 +6,7 @@ import { LoginDto } from '../commons/dtos/login.dto';
 import { Repository } from 'typeorm';
 import bcryptjs from 'bcryptjs';
 
-jest.mock('jsonwebtoken');
-
-describe('AuthService', () => {
+describe('AdminService', () => {
   let adminService: AdminService;
   let adminRepository: Repository<AdminEntity>;
   let createdAdmin: AdminEntity;
